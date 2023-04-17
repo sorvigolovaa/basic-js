@@ -3,19 +3,21 @@ function getSeason(date) {
     return 'Unable to determine the time of year!';
   }
 
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  let dateObj;
 
-  if (typeof date !== 'string' && !(date instanceof Date)) {
+  if (typeof date === 'string') {
+    dateObj = new Date(date);
+
+    if (isNaN(dateObj.getTime())) {
+      throw new Error('Invalid date!');
+    }
+  } else if (!(date instanceof Date) || isNaN(date.getTime())) {
     throw new Error('Invalid date!');
+  } else {
+    dateObj = date;
   }
 
-  const dateString = date instanceof Date ? date.toISOString().slice(0, 10) : date;
-
-  if (!dateRegex.test(dateString)) {
-    throw new Error('Invalid date!');
-  }
-
-  const month = new Date(dateString).getMonth();
+  const month = dateObj.getMonth();
 
   if (month === 11 || month < 2) {
     return 'winter';
