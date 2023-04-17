@@ -1,26 +1,31 @@
-const { isDate, getMonth, parseISO } = require('date-fns');
+const { isDate, getMonth } = require('date-fns');
 
 function getSeason(date) {
-  if (!date || !isDate(date)) {
+  if (!date) {
+    return 'Unable to determine the time of year!';
+  }
+
+  if (isDate(date) && isNaN(date.getTime())) {
     throw new Error('Invalid date!');
   }
 
-  const parsedDate = parseISO(date.toISOString().slice(0, 10));
-
-  if (getMonth(parsedDate) === 11 || getMonth(parsedDate) < 2) {
-    return 'winter';
-  } else if (getMonth(parsedDate) < 5) {
-    return 'spring';
-  } else if (getMonth(parsedDate) < 8) {
-    return 'summer';
-  } else if (getMonth(parsedDate) < 11) {
-    return 'fall';
-  } else {
+  if (!isDate(date)) {
     throw new Error('Invalid date!');
+  }
+
+  const month = getMonth(date);
+
+  if (month === 11 || month < 2) {
+    return 'winter';
+  } else if (month < 5) {
+    return 'spring';
+  } else if (month < 8) {
+    return 'summer';
+  } else {
+    return 'fall';
   }
 }
 
 module.exports = {
   getSeason
 };
-
