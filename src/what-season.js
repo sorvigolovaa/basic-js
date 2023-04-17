@@ -18,11 +18,3 @@ function getSeason(date) {
 module.exports = {
   getSeason
 };
-
-
-
-
-
-module.exports = {
-  getSeason
-};
