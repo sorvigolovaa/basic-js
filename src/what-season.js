@@ -10,6 +10,10 @@ function getSeason(date) {
   const month = date.getMonth() + 1;
   const day = date.getDate();
 
+  if (isNaN(month) || isNaN(day)) {
+    throw new Error('Invalid date!');
+  }
+
   if (month === 12 || month === 1 || month === 2) {
     return 'winter';
   } else if (month >= 3 && month <= 5) {
@@ -20,6 +24,7 @@ function getSeason(date) {
     return 'fall';
   }
 }
+
 
 
 module.exports = {
