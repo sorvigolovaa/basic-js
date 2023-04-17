@@ -1,13 +1,21 @@
-function getDNSStats(n) {
-  let str = n.toString();
-  let max = 0;
-  for (let i = 0; i < str.length; i++) {
-    let num = parseInt(str.slice(0, i) + str.slice(i+1));
-    if (num > max) {
-      max = num;
+function getDNSStats(domains) {
+  const stats = new Map();
+  
+  for (let domain of domains) {
+    const parts = domain.split('.').reverse();
+    let subdomain = '';
+    for (let part of parts) {
+      subdomain = `${part}.${subdomain}`;
+      stats.set(subdomain, (stats.get(subdomain) || 0) + 1);
     }
   }
-  return max;
+
+  const result = {};
+  for (let [domain, count] of stats) {
+    result[`.${domain}`] = count;
+  }
+
+  return result;
 }
 
 
