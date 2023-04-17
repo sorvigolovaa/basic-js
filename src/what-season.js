@@ -1,31 +1,31 @@
 function getSeason(date) {
-  if (!date) {
-    return 'Unable to determine the time of year!';
+  if (!date || Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date.getTime())) {
+    throw new Error("Invalid date!");
   }
 
-  if (!(date instanceof Date) || isNaN(date.getTime())) {
-    throw new Error('Invalid date!');
-  }
+  const month = date.getMonth();
 
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  if (isNaN(month) || isNaN(day) || month < 1 || month > 12 || day < 1 || day > 31) {
-    throw new Error('Invalid date!');
-  }
-
-  if (month >= 3 && month <= 5) {
-    return 'spring';
-  } else if (month >= 6 && month <= 8) {
-    return 'summer';
-  } else if (month >= 9 && month <= 11) {
-    return 'fall';
-  } else {
-    return 'winter';
+  switch (month) {
+    case 0:
+    case 1:
+    case 11:
+      return "winter";
+    case 2:
+    case 3:
+    case 4:
+      return "spring";
+    case 5:
+    case 6:
+    case 7:
+      return "summer";
+    case 8:
+    case 9:
+    case 10:
+      return "fall";
+    default:
+      throw new Error("Invalid date!");
   }
 }
-
-
 
 
 
