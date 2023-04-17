@@ -7,6 +7,10 @@ function getSeason(date) {
     throw new Error('Invalid date!');
   }
 
+  if (Object.prototype.toString.call(date) !== '[object Date]') {
+    throw new Error('Invalid date!');
+  }
+
   const month = date.getMonth();
 
   if (month === 11 || month < 2) {
