@@ -1,11 +1,22 @@
+const dayjs = require('dayjs');
+
 function getSeason(date) {
   if (!date) {
     return 'Unable to determine the time of year!';
   }
-  if (Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date.getTime())) {
+  
+  let dateObj = dayjs(date);
+  
+  if (!dateObj.isValid()) {
     throw new Error('Invalid date!');
   }
-  const month = date.getMonth();
+  
+  if (dateObj.$H > 0 || dateObj.$m > 0 || dateObj.$s > 0 || dateObj.$ms > 0) {
+    throw new Error('Invalid input: Date object should contain only month and year');
+  }
+
+  const month = dateObj.$M;
+  
   switch (month) {
     case 11:
     case 0:
@@ -27,9 +38,6 @@ function getSeason(date) {
       throw new Error('Invalid date!');
   }
 }
-
-
-
 
 module.exports = {
   getSeason
