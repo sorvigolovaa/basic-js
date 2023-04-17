@@ -12,5 +12,5 @@ function deleteDigit(n) {
 
 
 module.exports = {
-  getDNSStats
+  deleteDigit
 };
