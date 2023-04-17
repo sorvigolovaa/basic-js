@@ -1,4 +1,4 @@
-function deleteDigit(n) {
+function getDNSStats(n) {
   let str = n.toString();
   let max = 0;
   for (let i = 0; i < str.length; i++) {
@@ -12,5 +12,5 @@ function deleteDigit(n) {
 
 
 module.exports = {
-  deleteDigit
+  getDNSStats
 };
