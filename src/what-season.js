@@ -1,19 +1,13 @@
-const { isDate, getMonth } = require('date-fns');
-
 function getSeason(date) {
   if (!date) {
     return 'Unable to determine the time of year!';
   }
 
-  if (isDate(date) && isNaN(date.getTime())) {
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
     throw new Error('Invalid date!');
   }
 
-  if (!isDate(date)) {
-    throw new Error('Invalid date!');
-  }
-
-  const month = getMonth(date);
+  const month = date.getMonth();
 
   if (month === 11 || month < 2) {
     return 'winter';
