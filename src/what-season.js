@@ -1,8 +1,20 @@
 function getSeason(date) {
-  if (!date || isNaN(date.getTime())) {
+  if (!date) {
     return 'Unable to determine the time of year!';
   }
-
+  
+  if (!(date instanceof Date)) {
+    throw new Error('Invalid date!');
+  }
+  
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date!');
+  }
+  
+  if (Object.prototype.toString.call(date) !== "[object Date]") {
+    throw new Error('Invalid date!');
+  }
+  
   const month = date.getMonth();
   
   switch (month) {
@@ -23,9 +35,10 @@ function getSeason(date) {
     case 10:
       return 'fall';
     default:
-      return 'Unable to determine the time of year!';
+      throw new Error('Invalid date!');
   }
 }
+
 
 
 
