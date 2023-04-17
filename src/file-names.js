@@ -1,22 +1,32 @@
 function renameFiles(names) {
-  const map = new Map();
-  const result = [];
+  const fileCounts = {};
+  const newNames = [];
 
-  for (const name of names) {
-    let newName = name;
-    let count = map.get(name) || 0;
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i];
 
-    while (map.has(newName)) {
-      count++;
-      newName = `${name}(${count})`;
+    if (name in fileCounts) {
+      const newCount = fileCounts[name] + 1;
+      fileCounts[name] = newCount;
+      const newName = `${name}(${newCount})`;
+
+      if (newName in fileCounts) {
+        const newestCount = fileCounts[newName] + 1;
+        fileCounts[newName] = newestCount;
+        newNames.push(`${name}(${newCount})(${newestCount})`);
+      } else {
+        fileCounts[newName] = 0;
+        newNames.push(newName);
+      }
+    } else {
+      fileCounts[name] = 0;
+      newNames.push(name);
     }
-
-    map.set(newName, 1);
-    result.push(newName);
   }
 
-  return result;
+  return newNames;
 }
+
 
 module.exports = {
   renameFiles
