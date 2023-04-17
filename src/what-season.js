@@ -3,7 +3,7 @@ function getSeason(date) {
     return 'Unable to determine the time of year!';
   }
 
-  if (!(date instanceof Date) || isNaN(date)) {
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
     throw new Error('Invalid date!');
   }
 
@@ -24,6 +24,7 @@ function getSeason(date) {
     return 'fall';
   }
 }
+
 
 
 
